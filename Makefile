@@ -43,7 +43,7 @@ count_lines:
 
 # Launches the streamlit website.
 streamlit:
-	-@streamlit run app.py
+	-@streamlit run portfolio-streamlit-benragot/app.py
 
 # ----------------------------------
 #      UPLOAD PACKAGE TO PYPI
