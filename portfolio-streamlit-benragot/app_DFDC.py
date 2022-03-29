@@ -17,10 +17,11 @@ def app():
                 Then, three people were brave enough to join me on this crazy and challenging adventure :\\
                 - Jean-Baptiste Bordenave ([LinkedIn](https://www.linkedin.com/in/jean-baptiste-bordenave-b488b1116/))\\
                 - Ulysse Gatard ([LinkedIn](https://www.linkedin.com/in/ulysse-gatard-976b9967/))\\
-                - Christophe Morin ([LinkedIn](https://www.linkedin.com/in/christophe-morin-bb7b94a2/))
-                Thanks a lot to them for their courage, their perseverance and their professionalism.
+                - Christophe Morin ([LinkedIn](https://www.linkedin.com/in/christophe-morin-bb7b94a2/))\\
+                Thanks a lot to them for their courage, their perseverance and their professionalism. Here is a picture
+                of our team :muscle: :
                 """)
-
+    st.image("images/app_DFDC/DSC_7892.jpg", caption='A very nice picture of our team taken by Colin Chaigneau.')
     st.markdown("## What is a DeepFake ?")
     st.markdown("A DeepFake is a __*falsified video*__.")
     st.markdown("""Here is a very good definition from  OxfordLanguages : *\"a video of a person in which their face or
@@ -66,4 +67,28 @@ def app():
 
 
     st.markdown("## Our approach")
-    st.markdown(" Our approach")
+    st.markdown("### The architecture we selected")
+    st.markdown("""Our approach was based on a face classifier. This means that instead of analysing the whole video to
+                tell if it is DeepFake or real, we will only select 10 images of it, as shown here :arrow_down:""")
+    video = open('videos/aagfhgtpmv.mp4','rb')
+    st.video(video)
+    st.image("images/app_DFDC/sampling_images.png", caption='Sampling 10 images from the video')
+    st.markdown("Then, for each image, we will select a face, thanks to a model called YoloV2 :")
+    st.image("images/app_DFDC/sampling_faces.png", caption='Sampling one face per image')
+    st.markdown("""Our Deep Learning model can then take the first face in input to output the probability that the face
+                is fake. This Deep Learning model is based on a Convolutional Neural Network (CNN). They are perfect to
+                analyse images.""")
+    st.image("images/app_DFDC/simple_face_classifier.png", caption='The Deep Learning model')
+    st.markdown("We can then reapeat this operation on the ten faces : ")
+    st.image("images/app_DFDC/whole_face_classifier.png", caption='Computing the mean of the outputs of the Deep Learning model')
+    st.markdown("Then, we can compare this mean to a threshold to finally indicate if the video is DeepFake or real :")
+    st.image("images/app_DFDC/mean_threshold.png", caption='Comparing the mean to the threshold')
+    st.markdown("""Here the threshold is 0.432... And you might wonder how we calculated it. Also, you might wonder how
+                our Deep Learning model, the CNN, is able predict if a face is fake or real !\\
+                Don't worry, we will discuss this in the next sections.""")
+
+    st.markdown("### How we trained the Deep Learning model")
+
+    st.markdown("### How we selected our CNN architecture")
+
+    #sharing the folder of the best classifier of faces

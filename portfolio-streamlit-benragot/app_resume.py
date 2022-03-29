@@ -15,6 +15,6 @@ def app():
     image = Image.open('images/app_resume/profile_picture.jpg')
     st.image(image, caption='A very nice picture of me at Le Wagon taken by the talented Benoit Billard.')
     st.markdown('- Benjamin Ragot')
-    st.markdown('- 26 years old :birthday:')
+    st.markdown('- :birthday: 26 years old')
     st.markdown('- :round_pushpin: Paris :fr:')
-    st.markdown('- br.ragot@gmail.com :mailbox:')
+    st.markdown('- :envelope: br.ragot@gmail.com')
