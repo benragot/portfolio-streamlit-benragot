@@ -1,11 +1,9 @@
 import streamlit as st
-import io
 def app():
-    st.markdown('# :construction_worker: Currently being developed ! :construction_worker:')
     st.title("DeepFake Detection Challenge")
     st.markdown('A nice interface to show how we dealt with the famous kaggle dataset to develop a video classifier.')
-    if st.checkbox('You do not feel like reading ? Tick the box to see a short video (7min) that sums up our work !'):
-        st.video("https://youtu.be/vwwDGtuFbSQ?t=748")
+    if st.checkbox('You do not feel like reading ? Tick the box to watch a short video (7min) that sums up our work !'):
+        st.video("https://youtu.be/vwwDGtuFbSQ?t=748",start_time=750)
 
     st.markdown("## Context")
     st.markdown("""After weeks of studying at [Le Wagon](https://www.lewagon.com/paris/data-science-course/full-time),
@@ -94,7 +92,14 @@ def app():
                 choose to resize them as 224x224 pixels images. It was a good way to find out which CNN architecture
                 could give us interesting results. Below, a small gif that shows some faces from the dataset we used.
                 You should easily find out which ones are fake ! :arrow_down:""")
-    st.image("images/app_DFDC/faces.gif", caption='A few faces from the small dataset')
+    col1, col2, col3 = st.columns([1,6,1])
+    with col1:
+        st.write("")
+    with col2:
+        st.image("images/app_DFDC/faces.gif", caption='A few faces from the small dataset')
+    with col3:
+        st.write("")
+
     st.markdown("""With this dataset, we found out that the best CNN architecture we found was based on three
                 convolutional layers, with 16, 32 and 64 filters. We also learned a lot about how to deal with the
                 training a Deep Learning model on a big dataset, with batch per batch training.""")
@@ -103,13 +108,100 @@ def app():
     st.markdown("""As mentioned earlier, we were given 120 000 videos in the original dataset. Around 19 000 videos
                 were real, so we kept them and selected another 19 000 videos among the DeepFake ones to have a balanced
                 dataset.""")
+
     st.markdown("""Each video lasts 10 seconds, with 30 images per second : there is therefore 300 images for each
                 video. Moreover, each image was 1920x1080 pixels. Our aim was to reduce this quantity of information to
-                train smartly our CNN. \\
+                train smartly our CNN.\\
                 1. First, we took one image out of three : we now only have 100 images per video.\\
                 2. Then, we selected one face per image, reducing the size of the image to process to 224x224 pixels. We
                 now have 100 faces per video. \\
-                3. """)
-    st.markdown("### How we selected our CNN architecture")
+                3. Having 38 000 videos, we are now dealing with 3 800 000 faces ! It is way too much, we needed to stay
+                around 100 000 faces. We did so by picking only three faces per video. But if we pick randomly three
+                faces, we might have images that ar quite the same, especially on videos where the people do not move
+                much : """)
+    st.image('images/app_DFDC/random_faces.png')
 
-    #sharing the folder of the best classifier of faces
+    st.markdown("""4. To get three faces that as much different one from another, we then calculated the difference
+                between each face. Thanks to this metric, we can then select three interesting faces : """)
+    st.image('images/app_DFDC/selected_faces.png')
+    st.markdown("""Tanks to this method, we gathered 114 000 faces. We then used them to train an fine-tune a Deep
+                Learning model ! """)
+
+
+    st.markdown("### How we selected our CNN architecture")
+    st.markdown("""We basically already had a good architecture of CNN based on three convolutional layers, with 16, 32
+                and 64 filters. We did not have much time in front of us, and limited computing power : we were using
+                Google Colab. For each model we trained, we saved information in a Google Drive that you can view
+                [here](https://drive.google.com/drive/folders/1hbekEzHPAHqhgndpn-hC0HTaBizMHyUh?usp=sharing). Finally,
+                we were able to get really good results thanks to this architecture :""")
+    st.image('images/app_DFDC/best_model.png', use_column_width=True, caption='A scheme of the model used to classify faces')
+    st.markdown("""Our results were quite good on this one : 75\% accuracy and almost 80\% of recall !""")
+    if st.checkbox('You feel like knowing more on this model ? Click me to have a some more information !'):
+        st.markdown("""Here is a link to the folder where we stored all the information about this model :
+                    [Our best model](https://drive.google.com/file/d/11jP8aL0RA2QfqvxdaQJO98f9bdjmoNTn/view?usp=sharing)\\
+                    You can browse it freely, but you might enjoy more our analysis which is right below.""")
+        if st.checkbox('Click me to show the summary of our model '):
+            st.image('images/app_DFDC/model_summary.png', caption='Our model\'s summary')
+        st.markdown("""As you can see, there are a few keypoints that really helped us fine-tune our model : \\
+                    1. Using the 16, 32 and 64 filters of convolutional layers. We tried to replicate an architecture
+                    from  [this article](https://www.sciencedirect.com/science/article/pii/S2667096821000471).\\
+                    2. Choosing wisely the kernel sizes for our convolutionnal layers. Here, the shape used was (3,3).\\
+                    3. Choosing wisely max pool size. Here, we chose (4,4).\\
+                    4. Choosing wisely our dense layers. Here, the best we found were a layer of 128 neurons, then a
+                    layer of 16 neurons and of course an output layer of one neuron.\\
+                    5. Selecting the right dropout rate to avoid overfitting, which could be a risk because we took
+                    three faces per video. Here, we chose 0.1.
+                    """)
+        st.markdown("""In the end, our best leverage to increase our scores was still to get more faces to train on,
+                    even though this fine tuning allowed us to extract the last percents of accuracy, recall and
+                    precision we could get.
+                    """)
+    st.markdown("## What we Learnt")
+    st.markdown("### Our successes")
+    st.markdown("""Well, we could not have worked and learned more in two weeks. Here's a short list of all the
+                technologies/methods we used :\\
+                - Google Cloud Platform (GCP) : we used virtual machines to download and unzip the 500 GB dataset in a
+                bucket. Then we mostly used Vertex AI workbench to share a JupyterLab on a machine with a correct
+                computing power.\\
+                - TensorFlow/Keras : we used it to create and train our Deep Learning model.\\
+                - YoloV2 : we used it to find faces on images
+                - Github : we learned to work as a team, establishing inputs/outputs of our modules/functions to
+                keeep the workflow smooth.\\
+                - Trello : we used this organization tool to assign us tasks and observe our progress while working on
+                this challenging project.\\
+                - We achieved our goal : we have a function that can process a video and predict if it's a DeepFake or not !""")
+    st.markdown("### Our failures")
+    st.markdown("""Part of learning is making mistakes, and there is always room for improvement. It would be nonsense
+                to pretend everything went without a problem ! Here's a shortlist of our most epic fails : \\
+                - Trying to get some GPU computing power with free GCP (Google Cloud Platform) credits : impossible. With
+                the context of GPU shortage, GCP is only allowing people with real credits and loyal customers. We tried
+                to train models on my laptop but it was not very fast. We finally used Google Colab Pro which is quite
+                cheap (12$/month). But we should have done it at the very beginning ! \\
+                - Failing to use Google Colab properly due to different geographical locations. We've had troubles with
+                the loading of the images from my Google Drive to Google Colab. It's quite simple : Google Colab
+                computing power is in the U.S. an my Drive is in Europe. So loading images one by one without zipping
+                anything lead us to think that we could not use Google Colab !\\
+                - Blue faces fail : when using a
+                - Trying to show which image maximizes a filter from convolutional layers : unfortunately since our model
+                can classify fake and real faces based on details the results was not something very clear to a human's
+                eye.\\
+                - Trying to make sure every face is perfectly vertically aligned : it was a good idea that could have
+                lead us to better results but unfortunately, we were using 224/224 pixels images that were not always
+                well recognized by the model used to align face so it was not very successful and took a lot of computing
+                time. More information [here](https://datahacker.rs/010-how-to-align-faces-with-opencv-in-python/).""")
+
+    st.markdown("""On a more personal note :\\
+                - Not having enough time : as mentioned before, this challenge was supposed to be done in four months
+                and we only had two weeks. Therefore, it was really hard for me, the team leader, to not being able to
+                support my teammates when they wanted to explore different model architecture with eye blinking or face
+                contours analysis for instance. We were in a very tight schedule and at the beginning I hoped we would
+                have the time for some exploration but unfortunately we did not !\\
+                - """)
+
+    st.markdown("# Conclusion")
+    st.markdown("""To put in a nutshell, this challenge was one of the richest experience I have ever participated.
+                It was really hard, but we overcame the difficulties one by one to produce something in only two
+                weeks, which I am really proud of. Moreover, it was such a pleasur to work with Jean-Baptiste,
+                Christophe and Ulysse : they were really motivated by the project and they showed a very
+                appreciated autonomy in their work. This concluded the end of my bootcamp at Le Wagon and let's be
+                honest : it could not have ended in a better way.""")
