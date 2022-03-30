@@ -9,7 +9,6 @@ PAGES = {
     "DeepFake Detection Challenge": app_DFDC,
     "Ethereum mining interface": app_crypto,
 }
-
 st.sidebar.title('Navigation')
 selection = st.sidebar.radio("Go to", list(PAGES.keys()))
 page = PAGES[selection]

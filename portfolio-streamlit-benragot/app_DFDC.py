@@ -88,7 +88,28 @@ def app():
                 Don't worry, we will discuss this in the next sections.""")
 
     st.markdown("### How we trained the Deep Learning model")
-
+    st.markdown("""So, as we said earlier, the Deep Learning model must classify faces as DeepFake (=1) or real (=0).
+                To do so, we must train it on a dataset. We first choose a simple dataset of 32 000 faces with an equal
+                quantity of fake and real faces. Faces are easier to process since they are small images. Here, we
+                choose to resize them as 224x224 pixels images. It was a good way to find out which CNN architecture
+                could give us interesting results. Below, a small gif that shows some faces from the dataset we used.
+                You should easily find out which ones are fake ! :arrow_down:""")
+    st.image("images/app_DFDC/faces.gif", caption='A few faces from the small dataset')
+    st.markdown("""With this dataset, we found out that the best CNN architecture we found was based on three
+                convolutional layers, with 16, 32 and 64 filters. We also learned a lot about how to deal with the
+                training a Deep Learning model on a big dataset, with batch per batch training.""")
+    st.markdown("""This method gave us results that were encouraging by beating the baseline. We reached 60\%
+                accuracy quite easily and we were ready to go to the next step : creating a bigger dataset.""")
+    st.markdown("""As mentioned earlier, we were given 120 000 videos in the original dataset. Around 19 000 videos
+                were real, so we kept them and selected another 19 000 videos among the DeepFake ones to have a balanced
+                dataset.""")
+    st.markdown("""Each video lasts 10 seconds, with 30 images per second : there is therefore 300 images for each
+                video. Moreover, each image was 1920x1080 pixels. Our aim was to reduce this quantity of information to
+                train smartly our CNN. \\
+                1. First, we took one image out of three : we now only have 100 images per video.\\
+                2. Then, we selected one face per image, reducing the size of the image to process to 224x224 pixels. We
+                now have 100 faces per video. \\
+                3. """)
     st.markdown("### How we selected our CNN architecture")
 
     #sharing the folder of the best classifier of faces
