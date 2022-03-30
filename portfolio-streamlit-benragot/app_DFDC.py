@@ -169,7 +169,10 @@ def app():
                 keeep the workflow smooth.\\
                 - Trello : we used this organization tool to assign us tasks and observe our progress while working on
                 this challenging project.\\
-                - We achieved our goal : we have a function that can process a video and predict if it's a DeepFake or not !""")
+                - We achieved our goal : we have a function that can process a video and predict if it's a DeepFake or not !\\
+                - Bonus : we created a function that transforms a video into a gif where we plot the probability that
+                the face is fake with a bounding box : """)
+    st.image('images/app_DFDC/dumb.gif')
     st.markdown("### Our failures")
     st.markdown("""Part of learning is making mistakes, and there is always room for improvement. It would be nonsense
                 to pretend everything went without a problem ! Here's a shortlist of our most epic fails : \\
@@ -191,12 +194,12 @@ def app():
                 time. More information [here](https://datahacker.rs/010-how-to-align-faces-with-opencv-in-python/).""")
 
     st.markdown("""On a more personal note :\\
-                - Not having enough time : as mentioned before, this challenge was supposed to be done in four months
+                As mentioned before, this challenge was supposed to be done in four months
                 and we only had two weeks. Therefore, it was really hard for me, the team leader, to not being able to
                 support my teammates when they wanted to explore different model architecture with eye blinking or face
                 contours analysis for instance. We were in a very tight schedule and at the beginning I hoped we would
-                have the time for some exploration but unfortunately we did not !\\
-                - """)
+                have the time for some exploration but unfortunately we did not !
+                """)
 
     st.markdown("# Conclusion")
     st.markdown("""To put in a nutshell, this challenge was one of the richest experience I have ever participated.
