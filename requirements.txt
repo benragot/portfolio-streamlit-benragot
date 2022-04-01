@@ -21,6 +21,7 @@ gcsfs
 google-cloud-storage
 mlflow
 s3fs
+binance-connector
 
 # utilities
 six>=1.14
