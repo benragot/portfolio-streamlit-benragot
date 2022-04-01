@@ -156,7 +156,7 @@ def app():
                     even though this fine tuning allowed us to extract the last percents of accuracy, recall and
                     precision we could get.
                     """)
-    st.markdown("## What we Learnt")
+    st.markdown("## What we learned")
     st.markdown("### Our successes")
     st.markdown("""Well, we could not have worked and learned more in two weeks. Here's a short list of all the
                 technologies/methods we used :\\
