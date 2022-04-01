@@ -12,7 +12,7 @@ def app():
     config_logging(logging, logging.DEBUG)
 
     key = st.secrets["BINANCE_KEY"]
-    secret = st.secrets["BINANCE_SECREt_KEY"]
+    secret = st.secrets["BINANCE_SECRET_KEY"]
     client = Client(key, secret)
     option = st.slider('How many days ', 20, 200, 10)
     a = client.mining_earnings_list(algo="Ethash", userName="BRAGOT2070",pageSize=option)['data']
