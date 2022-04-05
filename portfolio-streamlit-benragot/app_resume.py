@@ -10,14 +10,18 @@ import base64
 def app():
     st.title("Benjamin Ragot's Resume")
     st.markdown("### Here is my resume. Please feel free to download it.")
+    st.markdown("""
+<embed src="https://drive.google.com/file/d/0B_mcstT9AcSWQzJvSmFpekFPQjl3b2lHU0IwSmdZTEJrclRr/view?usp=sharing&resourcekey=0-cJ441xcVNfUFaO5MMJAE3A" width="400" height="400">
+""", unsafe_allow_html=True)
+
+
     language = st.radio(f'Select a language', ('English', 'Français'))
     if language == 'English':
-        with open('images/app_resume/CV_en.1.0.pdf',"rb") as f:
-            base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-        pdf_display = F'<iframe src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf"></iframe>'
-        st.markdown(pdf_display, unsafe_allow_html=True)
+        with open('images/app_resume/CV_en.1.0.pdf', 'rb') as f:
+            st.download_button('Download', f, file_name='CV_Benjamin_Ragot.pdf')
+        st.image('images/app_resume/CV_en.1.0.png')
     else:
-        with open('images/app_resume/CV.0.9.pdf',"rb") as f:
-            base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-        pdf_display = F'<iframe src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf"></iframe>'
-        st.markdown(pdf_display, unsafe_allow_html=True)
+        with open('images/app_resume/CV.0.9.pdf', 'rb') as f:
+            st.download_button('Download', f, file_name='CV_Benjamin_Ragot.pdf')
+        st.image('images/app_resume/CV.0.9.png')
+ #

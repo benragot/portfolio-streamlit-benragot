@@ -62,18 +62,18 @@ def app():
         return df.head(len(df)-2)
 
     st.markdown('# :construction_worker: Currently being developed ! :construction_worker:')
-    st.title("Ethereum mining interface")
+    st.title("Ethereum mining")
     st.markdown('*A nice interface to show how I mine Ethereum.*')
 
     st.markdown('''## *Context*''')
 
     st.markdown('### What is cryptocurrency mining ?')
     st.markdown('''First of all, mining cryptocurrencies is something quite complex to explain,
-                and I won't explain here how does it works, since there is plenty of information
+                and I won't detail here how it works, since there is plenty of information
                 very well written, like this
                 [short article](https://www.pcmag.com/encyclopedia/term/crypto-mining) or this
                 [longer one](https://freemanlaw.com/mining-explained-a-detailed-guide-on-how-cryptocurrency-mining-works/).
-                To sum up in a very simple way, it is a way to earn money by hosting computing
+                To sum up, cryptocurrency mining is a way to earn money by hosting computing
                 power.''')
 
     st.markdown('### When did I start mining Ethereum and how do I do it ? ')
@@ -85,10 +85,10 @@ def app():
                 build my very own Ethereum mining machines, called *rigs*. There was still one
                 problem : there was a big components shortage. Therefore, I bought most of them
                 used and I had to deal with reliability a little bit. I learned a lot on how
-                optimize production, stability and uptime of the machines.''')
+                to optimize production, stability and uptime of the machines.''')
     st.markdown('''Today, I have three rigs organized in a wooden structure that I built with
                 a very good friend of mine, Henri. It has three levels, each with one power supply
-                unit, one motherboard and four to five GPUs, as you cans see on the image below.''')
+                unit, one motherboard and four to five GPUs, as you can see on the image below.''')
     # a little slider to adapt the size of the image.
     width_percent = st.slider('You can change the width of the image here : ', 50, 100, 50)
     st.image('images/app_crypto/rigs_structured.jpg',
@@ -103,7 +103,7 @@ def app():
     st.markdown('### What is Binance and why do I use it ? ')
     st.markdown('''[Binance](https://www.binance.com/en) is a platform where you can buy, trade and hold many
                 cryptocurrencies. Moreover, you can lend computing power to mine Ethereum, which is exactly what I do.
-                It allows me to receive my earning exactly on the the platform where I will sell them. Last but not
+                It allows me to receive my Ethereum earnings exactly on the the platform where I will sell them. Last but not
                 least, it has a nice API that I can use to show many metrics in the next section !''')
     st.markdown('## Production graphs ')
     st.markdown('### Average HashRate per day (in Mh/s)')
