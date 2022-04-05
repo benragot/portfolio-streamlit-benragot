@@ -12,7 +12,7 @@ def app():
     st.markdown("### Here is my resume. Please feel free to download it.")
     language = st.radio(f'Select a language', ('English', 'Français'))
     if language == 'English':
-        with open('images/app_resume/CV_en.0.9.pdf',"rb") as f:
+        with open('images/app_resume/CV_en.1.0.pdf',"rb") as f:
             base64_pdf = base64.b64encode(f.read()).decode('utf-8')
         pdf_display = F'<iframe src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf"></iframe>'
         st.markdown(pdf_display, unsafe_allow_html=True)

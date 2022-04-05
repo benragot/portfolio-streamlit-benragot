@@ -3,14 +3,12 @@ A module in charge of displaying the Ethereum mining interface of the streamlit.
 It communicates with Binance's API to gather data and display it.
 '''
 
-from turtle import width
 import streamlit as st
 import logging
 from binance.spot import Spot as Client
 from binance.lib.utils import config_logging
 import pandas as pd
 from datetime import date
-from PIL import Image
 
 def app():
     key = st.secrets["BINANCE_KEY"]
