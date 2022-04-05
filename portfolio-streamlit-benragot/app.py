@@ -1,3 +1,8 @@
+'''
+Main module of the Streamlit. It is only in charge of displaying one of the pages registered
+in the PAGES dictionary.
+'''
+
 import streamlit as st
 import app_resume
 import app_crypto
@@ -7,7 +12,7 @@ PAGES = {
     "Welcome": app_welcome,
     "Resume": app_resume,
     "DeepFake Detection Challenge": app_DFDC,
-    "Ethereum mining interface": app_crypto,
+    "Ethereum mining": app_crypto,
 }
 st.sidebar.title('Navigation')
 selection = st.sidebar.radio("Go to", list(PAGES.keys()))

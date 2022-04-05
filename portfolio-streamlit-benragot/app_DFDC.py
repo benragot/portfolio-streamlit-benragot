@@ -1,3 +1,8 @@
+'''
+A module that displays the DeepFake Detection Challenge of the Streamlit. It tells the story
+of how we built a model that can classify videos as DeepFake or Real.
+'''
+
 import streamlit as st
 def app():
     st.title("DeepFake Detection Challenge")
@@ -100,7 +105,7 @@ def app():
     with col3:
         st.write("")
 
-    st.markdown("""With this dataset, we found out that the best CNN architecture we found was based on three
+    st.markdown("""With this dataset, we found out that the best CNN architecture on three
                 convolutional layers, with 16, 32 and 64 filters. We also learned a lot about how to deal with the
                 training a Deep Learning model on a big dataset, with batch per batch training.""")
     st.markdown("""This method gave us results that were encouraging by beating the baseline. We reached 60\%
@@ -122,7 +127,7 @@ def app():
     st.image('images/app_DFDC/random_faces.png')
 
     st.markdown("""4. To get three faces that as much different one from another, we then calculated the difference
-                between each face. Thanks to this metric, we can then select three interesting faces : """)
+                between each face. Thanks to this method, we can then select three interesting faces : """)
     st.image('images/app_DFDC/selected_faces.png')
     st.markdown("""Tanks to this method, we gathered 114 000 faces. We then used them to train an fine-tune a Deep
                 Learning model ! """)
@@ -164,7 +169,7 @@ def app():
                 bucket. Then we mostly used Vertex AI workbench to share a JupyterLab on a machine with a correct
                 computing power.\\
                 - TensorFlow/Keras : we used it to create and train our Deep Learning model.\\
-                - YoloV2 : we used it to find faces on images
+                - YoloV2 : we used it to find faces on images\\
                 - Github : we learned to work as a team, establishing inputs/outputs of our modules/functions to
                 keeep the workflow smooth.\\
                 - Trello : we used this organization tool to assign us tasks and observe our progress while working on
@@ -184,7 +189,6 @@ def app():
                 the loading of the images from my Google Drive to Google Colab. It's quite simple : Google Colab
                 computing power is in the U.S. an my Drive is in Europe. So loading images one by one without zipping
                 anything lead us to think that we could not use Google Colab !\\
-                - Blue faces fail : when using a
                 - Trying to show which image maximizes a filter from convolutional layers : unfortunately since our model
                 can classify fake and real faces based on details the results was not something very clear to a human's
                 eye.\\
@@ -204,7 +208,7 @@ def app():
     st.markdown("# Conclusion")
     st.markdown("""To put in a nutshell, this challenge was one of the richest experience I have ever participated.
                 It was really hard, but we overcame the difficulties one by one to produce something in only two
-                weeks, which I am really proud of. Moreover, it was such a pleasur to work with Jean-Baptiste,
+                weeks, which I am really proud of. Moreover, it was such a pleasure to work with Jean-Baptiste,
                 Christophe and Ulysse : they were really motivated by the project and they showed a very
                 appreciated autonomy in their work. This concluded the end of my bootcamp at Le Wagon and let's be
                 honest : it could not have ended in a better way.""")
