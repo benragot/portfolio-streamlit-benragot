@@ -101,15 +101,14 @@ def app():
                     .apply(remove_numbers)\
                     .apply(remove_stopwords)\
                     .apply(lemmatize)
-    st.write(my_texts.head())
     if st.button('Launch LDA demo'):
+        results = {}
         vectorizer = TfidfVectorizer().fit(data)
         data_vectorized = vectorizer.transform(data)
         lda_model = LatentDirichletAllocation(n_components=n_components,n_jobs=-1).fit(data_vectorized)
-        def print_topics(model, vectorizer):
-            for idx, topic in enumerate(model.components_):
-                st.write("Topic %d:" % (idx + 1))
-                st.write([(GoogleTranslator(source='auto', target='en').translate(vectorizer.get_feature_names()[i]), topic[i])
-                                for i in topic.argsort()[:-5 - 1:-1]])
-        print_topics(lda_model, vectorizer)
+        for idx, topic in enumerate(lda_model.components_):
+            results[f"Topic {idx + 1}"] = [(GoogleTranslator(source='auto', target='en').translate(vectorizer.get_feature_names()[i]), topic[i])
+                                            for i in topic.argsort()[:-10 - 1:-1]]
+        st.write(results)
+
 #todo pyplot of the words

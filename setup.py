@@ -18,3 +18,5 @@ setup(name='portfolio-streamlit-benragot',
 
 from nltk import download as nltkDL
 nltkDL('all')
+nltkDL('stopwords')
+nltkDL('punkt')
