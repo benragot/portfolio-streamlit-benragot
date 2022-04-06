@@ -22,10 +22,6 @@ def app():
         '''
         df = pd.read_csv("https://wagon-public-datasets.s3.amazonaws.com/Machine%20Learning%20Datasets/reviews.csv")
         df['review_score'] = df['review_score'].map({'1':1,'2':2,'3':3,'4':4,5:5,1:1,2:2,3:3,4:4,5:5})
-        #downloading the stopwords
-        nltkDL('stopwords')
-        nltkDL('punkt')
-        nltkDL('all')
         return df
 
     #functions to manipulate text before analysing it
