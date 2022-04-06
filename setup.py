@@ -15,8 +15,3 @@ setup(name='portfolio-streamlit-benragot',
       include_package_data=True,
       scripts=['scripts/portfolio-streamlit-benragot-run'],
       zip_safe=False)
-
-from nltk import download as nltkDL
-nltkDL('all')
-nltkDL('stopwords')
-nltkDL('punkt')
