@@ -9,6 +9,7 @@ import string
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
+from nltk import download as nltkDL
 from sklearn.decomposition import LatentDirichletAllocation
 from sklearn.feature_extraction.text import TfidfVectorizer
 from deep_translator import GoogleTranslator
@@ -21,6 +22,8 @@ def app():
         '''
         df = pd.read_csv("https://wagon-public-datasets.s3.amazonaws.com/Machine%20Learning%20Datasets/reviews.csv")
         df['review_score'] = df['review_score'].map({'1':1,'2':2,'3':3,'4':4,5:5,1:1,2:2,3:3,4:4,5:5})
+        #downloading the stopwords
+        nltkDL('stopwords')
         return df
 
     #functions to manipulate text before analysing it
@@ -101,13 +104,14 @@ def app():
                     .apply(remove_stopwords)\
                     .apply(lemmatize)
     st.write(my_texts.head())
-    vectorizer = TfidfVectorizer().fit(data)
-    data_vectorized = vectorizer.transform(data)
-    lda_model = LatentDirichletAllocation(n_components=n_components,n_jobs=-1).fit(data_vectorized)
-    def print_topics(model, vectorizer):
-        for idx, topic in enumerate(model.components_):
-            st.write("Topic %d:" % (idx))
-            st.write([(GoogleTranslator(source='auto', target='en').translate(vectorizer.get_feature_names()[i]), topic[i])
-                            for i in topic.argsort()[:-5 - 1:-1]])
-    print_topics(lda_model, vectorizer)
+    if st.button('Launch LDA demo'):
+        vectorizer = TfidfVectorizer().fit(data)
+        data_vectorized = vectorizer.transform(data)
+        lda_model = LatentDirichletAllocation(n_components=n_components,n_jobs=-1).fit(data_vectorized)
+        def print_topics(model, vectorizer):
+            for idx, topic in enumerate(model.components_):
+                st.write("Topic %d:" % (idx + 1))
+                st.write([(GoogleTranslator(source='auto', target='en').translate(vectorizer.get_feature_names()[i]), topic[i])
+                                for i in topic.argsort()[:-5 - 1:-1]])
+        print_topics(lda_model, vectorizer)
 #todo pyplot of the words
