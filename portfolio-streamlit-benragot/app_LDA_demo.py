@@ -34,22 +34,35 @@ def lemmatize(txt_list):
     return ' '.join(lemmatized)
 
 def compute_and_show_LDA_results(data,n_components,nb_words,translate,language):
+    latest_iteration = st.empty()
+    bar = st.progress(0)
     results = {}
+    latest_iteration.text(f'Vectorizer fitting...')
     vectorizer = TfidfVectorizer().fit(data)
+    bar.progress(10)
+    latest_iteration.text(f'Vectorizing data...')
     data_vectorized = vectorizer.transform(data)
+    bar.progress(20)
+    latest_iteration.text(f'Fitting the LDA model...')
     lda_model = LatentDirichletAllocation(n_components=n_components,n_jobs=-1).fit(data_vectorized)
+    bar.progress(30)
     for idx, topic in enumerate(lda_model.components_):
         if translate:
+            latest_iteration.text(f'Translating results...  Topic {idx + 1}/{n_components}')
             results[f"Topic {idx + 1}"] = [(GoogleTranslator(source='auto', target=language)\
                                             .translate(vectorizer.get_feature_names()[i])\
                                             + ' : ' + str(round(topic[i],1)))
                                             for i in topic.argsort()[:-nb_words - 1:-1]]
+            bar.progress(40 + int((idx + 1) * 60 / n_components))
         else:
+            latest_iteration.text(f'Saving results...  Topic {idx + 1}/{n_components}')
             results[f"Topic {idx + 1}"] = [vectorizer.get_feature_names()[i]\
                                             + ' : ' + str(round(topic[i],1))
                                             for i in topic.argsort()[:-nb_words - 1:-1]]
+            bar.progress(40 + int((idx + 1) * 60 / n_components))
         st.write(f"Topic {idx + 1} : " + '\n'.join(results[f"Topic {idx + 1}"]))
-
+    bar.progress(100)
+    latest_iteration.text(f'LDA Done, results are below.')
 #kept categories of products in the olist df.
 dico_categories = {'All categories': 'all',
                         'bed table bath': 'cama_mesa_banho',
@@ -82,7 +95,7 @@ def app():
         '''
         df = pd.read_csv("https://wagon-public-datasets.s3.amazonaws.com/Machine%20Learning%20Datasets/reviews.csv")
         df['review_score'] = df['review_score'].map({'1':1,'2':2,'3':3,'4':4,5:5,1:1,2:2,3:3,4:4,5:5})
-        #ntlk downloadings.
+        #ntlk downloadings : compulsory for good deployment on Share streamlit.
         nltkDL('stopwords')
         nltkDL('punkt')
         nltkDL('wordnet')
@@ -91,7 +104,6 @@ def app():
 
     df = get_cached_reviews()
 
-    st.markdown('# :construction_worker: Currently being developed ! :construction_worker:')
     st.title("Natural Language Processing :")
     st.markdown('## *Demo of Latent Dirichlet Allocation*')
     st.markdown('### Definition')
@@ -108,15 +120,30 @@ def app():
     st.markdown('## Demo on Olist\'s Data')
     st.markdown('''Olist is a Brazilian e-commerce platform that shared some data on
                 [Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce). We will
-                use it here to find out what creates a bad review ! ''')
+                use it here to find out what can create a bad review score ! ''')
+    st.markdown('''I created a small tool for you to explore LDA based on the comments.
+                The default settings are quite good, so you should see interesting results
+                fast. ''')
+    st.markdown('''Three disclaimers : \\
+                - If you are using the translating feature, you might have some bugs due to
+                some problems with the Google Translator API. Just click on the button again
+                and the problem should disappear.\\
+                - Not having the same results with the same parameters : it is perfectly normal.
+                In fact, LDA models are set randomly at first and then they are fitted on the
+                dataset. So, it is very likely that you will never have exactly the same results
+                with the same parameters.\\
+                - Remember that LDA is a simple Machine Learning tool that is not the best at this
+                task. But it is very fast, as you will see with the demo. It only needs seconds
+                to fit a large amount of data.''')
+
     #gathering info to do the LDA.
     col1, col2, col3 = st.columns(3)
     score = col1.selectbox('Which reviews score would you like to investigate ?',(1,2,3,4,5))
     category = col2.selectbox('Which category would you like to investigate ?',tuple(dico_categories.keys()))
-    n_components = col3.selectbox('How many groups would you like to have ?',(2,3,4,5))
+    n_components = col3.selectbox('How many groups would you like to have ?',(2,3,4,5,6,7,8),2)
     #gathering info to do the LDA.
     col4, col5, col6 = st.columns(3)
-    nb_words_per_topic = col4.selectbox('How many words do you want to show per topic ?',tuple(range(5,10)))
+    nb_words_per_topic = col4.selectbox('How many words do you want to show per topic ?',tuple(range(8,16)),7)
     translate_words = col5.selectbox('Do you want to translate words shown for each topic ?',('Yes','No'))
     language = col6.selectbox('Which language to you want them to be translated in ?',('en','fr'))
     data = df.copy()
@@ -138,5 +165,4 @@ def app():
                                      nb_words_per_topic,
                                      translate_words=='Yes',
                                      language)
-
-#todo pyplot of the words?
+    #todo pyplot of the words?
