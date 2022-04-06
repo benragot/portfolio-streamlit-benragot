@@ -7,11 +7,13 @@ import streamlit as st
 import app_resume
 import app_crypto
 import app_DFDC
+import app_LDA_demo
 import app_welcome
 PAGES = {
     "Welcome": app_welcome,
     "Resume": app_resume,
     "DeepFake Detection Challenge": app_DFDC,
+    "NLP : LDA demo": app_LDA_demo,
     "Ethereum mining": app_crypto,
 }
 st.sidebar.title('Navigation')

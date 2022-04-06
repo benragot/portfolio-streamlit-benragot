@@ -6,7 +6,7 @@ of how we built a model that can classify videos as DeepFake or Real.
 import streamlit as st
 def app():
     st.title("DeepFake Detection Challenge")
-    st.markdown('A nice interface to show how we dealt with the famous kaggle dataset to develop a video classifier.')
+    st.markdown('An article to show how we dealt with the famous kaggle dataset to develop a video classifier.')
     if st.checkbox('You do not feel like reading ? Tick the box to watch a short video (7min) that sums up our work !'):
         st.video("https://youtu.be/vwwDGtuFbSQ?t=748",start_time=750)
 
@@ -20,20 +20,7 @@ def app():
                 Then, three people were brave enough to join me on this crazy and challenging adventure :\\
                 - Jean-Baptiste Bordenave ([LinkedIn](https://www.linkedin.com/in/jean-baptiste-bordenave-b488b1116/))\\
                 - Ulysse Gatard ([LinkedIn](https://www.linkedin.com/in/ulysse-gatard-976b9967/))\\
-                - Christophe Morin ([LinkedIn](https://www.linkedin.com/in/christophe-morin-bb7b94a2/))\\
-                Thanks a lot to them for their courage, their perseverance and their professionalism. Here is a picture
-                of our team :muscle: :
-                """)
-    st.image("images/app_DFDC/DSC_7892.jpg", caption='A very nice picture of our team taken by Colin Chaigneau.')
-    st.markdown("## What is a DeepFake ?")
-    st.markdown("A DeepFake is a __*falsified video*__.")
-    st.markdown("""Here is a very good definition from  OxfordLanguages : *\"a video of a person in which their face or
-                body has been digitally altered so that they appear to be someone else, typically used maliciously or to
-                spread false information.\"*""")
-    st.markdown("Let's see an example with Barack Obama :")
-    st.video('https://www.youtube.com/watch?v=cQ54GDm1eL0')
-    st.markdown("""Even though it really looks like it is Obama speaking __it is not__! In fact, this DeepFake is really
-                well done : we could say its quality is almost like the one you could get in a movie.
+                - Christophe Morin ([Lindatasetay its quality is almost like the one you could get in a movie.
                 Therefore, this kind of DeepFake is quite long and expensive to create.""")
 
 
@@ -131,7 +118,6 @@ def app():
     st.image('images/app_DFDC/selected_faces.png')
     st.markdown("""Tanks to this method, we gathered 114 000 faces. We then used them to train an fine-tune a Deep
                 Learning model ! """)
-
 
     st.markdown("### How we selected our CNN architecture")
     st.markdown("""We basically already had a good architecture of CNN based on three convolutional layers, with 16, 32
