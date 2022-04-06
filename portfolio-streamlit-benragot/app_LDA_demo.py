@@ -25,6 +25,7 @@ def app():
         #downloading the stopwords
         nltkDL('stopwords')
         nltkDL('punkt')
+        nltkDL('all')
         return df
 
     #functions to manipulate text before analysing it
