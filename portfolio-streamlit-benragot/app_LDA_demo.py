@@ -86,6 +86,7 @@ def app():
         nltkDL('stopwords')
         nltkDL('punkt')
         nltkDL('wordnet')
+        nltkDL('omw-1.4')
         return df
 
     df = get_cached_reviews()
