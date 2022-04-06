@@ -24,6 +24,7 @@ def app():
         df['review_score'] = df['review_score'].map({'1':1,'2':2,'3':3,'4':4,5:5,1:1,2:2,3:3,4:4,5:5})
         #downloading the stopwords
         nltkDL('stopwords')
+        nltkDL('punkt')
         return df
 
     #functions to manipulate text before analysing it
