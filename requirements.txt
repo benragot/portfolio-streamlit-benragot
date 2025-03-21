@@ -31,5 +31,5 @@ termcolor
 
 #LDA needed
 nltk
-sklearn
+scikit-learn
 deep_translator
